@@ -6,8 +6,10 @@ const Tambahadmin = () => {
     nama_lengkap: "",
     email: "",
     password: "",
-    status: "active", // Default status
+    status: "aktif",
   });
+
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -31,20 +33,25 @@ const Tambahadmin = () => {
       });
 
       if (response.ok) {
-        alert("Admin added successfully!");
-        navigate("/admin"); // Redirect to the admin list page
+        const data = await response.json();
+        alert(`Admin added successfully with ID: ${data.id}`);
+        navigate("/admin/admin/admin");
       } else {
-        alert("Failed to add admin");
+        const errorData = await response.json();
+        setError(errorData.message); // Set error message from backend
       }
     } catch (error) {
       console.error("Error adding admin:", error);
-      alert("An error occurred while adding admin");
+      setError("An error occurred while adding admin"); // Set generic error message
     }
   };
 
   return (
     <div className="p-8 bg-white rounded-lg mx-auto shadow-lg mt-7 w-5/6">
       <h2 className="text-2xl font-bold mb-7">Tambah Admin</h2>
+      {error && (
+        <div className="mb-5 p-4 bg-red-100 text-red-700 rounded">{error}</div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="mb-5">
           <label className="block mb-2">Nama Lengkap:</label>
@@ -78,19 +85,6 @@ const Tambahadmin = () => {
             className="w-full p-2 border border-gray-300 rounded"
             required
           />
-        </div>
-        <div className="mb-5">
-          <label className="block mb-2">Status:</label>
-          <select
-            name="status"
-            value={adminData.status}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          >
-            <option value="active">Active</option>
-            <option value="offline">Offline</option>
-          </select>
         </div>
         <button
           type="submit"

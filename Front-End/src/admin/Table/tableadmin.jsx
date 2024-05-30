@@ -29,6 +29,16 @@ const Tableadmin = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Validasi input
+      if (
+        !editAdmin.nama_lengkap ||
+        !editAdmin.email ||
+        !editAdmin.password ||
+        !editAdmin.status
+      ) {
+        throw new Error("All fields are required");
+      }
+
       const response = await fetch(
         `http://localhost:8081/user/${editAdmin.id_user}`,
         {
@@ -51,6 +61,8 @@ const Tableadmin = () => {
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      // Tampilkan pesan error
+      alert(error.message);
     }
   };
 
@@ -77,10 +89,20 @@ const Tableadmin = () => {
     setIsModalOpen(true);
   };
 
-  const handleDelete = (id) => {
-    console.log(`Delete item with ID ${id}`);
+  const handleDelete = async (id) => {
+    fetch(`http://localhost:8081/user/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Hapus Berhasil:", data);
+        setData((prevData) => prevData.filter((item) => item.id_user !== id));
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        // Handle error
+      });
   };
-
   const customStyles = {
     rows: {
       style: {
@@ -131,9 +153,9 @@ const Tableadmin = () => {
             display: "flex",
             alignItems: "center",
             backgroundColor:
-              row.status === "active"
+              row.status === "aktif"
                 ? "#D1FAE5"
-                : row.status === "offline"
+                : row.status === "off"
                 ? "#FED7D7"
                 : "transparent",
             padding: "4px",
@@ -145,7 +167,7 @@ const Tableadmin = () => {
               width: "8px",
               height: "8px",
               borderRadius: "50%",
-              backgroundColor: row.status === "active" ? "green" : "red",
+              backgroundColor: row.status === "aktif" ? "green" : "red",
               marginRight: "8px",
             }}
           ></div>
@@ -305,8 +327,8 @@ const Tableadmin = () => {
                     required
                   >
                     <option value="">Pilih Status</option>
-                    <option value="active">Active</option>
-                    <option value="offline">Offline</option>
+                    <option value="aktif">Active</option>
+                    <option value="off">Offline</option>
                   </select>
                 </div>
                 <div>

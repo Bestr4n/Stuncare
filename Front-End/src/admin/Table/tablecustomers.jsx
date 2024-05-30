@@ -15,12 +15,25 @@ const Tablecustomers = () => {
   }, []);
 
   const handleEdit = (customer) => {
-    setSelectedCustomer(customer);
+    setSelectedCustomer({ ...customer });
     setModalIsOpen(true);
   };
 
   const handleDelete = (id) => {
-    console.log(`Delete item with ID ${id}`);
+    fetch(`http://localhost:8081/customer/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Hapus Berhasil:", data);
+        setData((prevData) =>
+          prevData.filter((item) => item.id_customer !== id)
+        );
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        // Handle error
+      });
   };
 
   const closeModal = () => {
@@ -29,13 +42,26 @@ const Tablecustomers = () => {
   };
 
   const handleSave = () => {
-    // Save the updated customer information
-    // You can add the logic to save the changes here
-    console.log("Customer data saved", selectedCustomer);
-    closeModal();
+    fetch(`http://localhost:8081/customer/${selectedCustomer.id_customer}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(selectedCustomer),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Update berhasil:", data);
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Error:", err);
+        // Handle error
+      });
   };
 
   const customStyles = {
+    // Styles for the table rows
     rows: {
       style: {
         minHeight: "56px",
@@ -80,9 +106,9 @@ const Tablecustomers = () => {
             display: "flex",
             alignItems: "center",
             backgroundColor:
-              row.status === "active"
+              row.status === "aktif"
                 ? "#D1FAE5"
-                : row.status === "offline"
+                : row.status === "off"
                 ? "#FED7D7"
                 : "transparent",
             padding: "4px",
@@ -94,7 +120,7 @@ const Tablecustomers = () => {
               width: "8px",
               height: "8px",
               borderRadius: "50%",
-              backgroundColor: row.status === "active" ? "green" : "red",
+              backgroundColor: row.status === "aktif" ? "green" : "red",
               marginRight: "8px",
             }}
           ></div>
@@ -243,8 +269,8 @@ const Tablecustomers = () => {
                         border: "1px solid #ccc",
                       }}
                     >
-                      <option value="active">Active</option>
-                      <option value="offline">Offline</option>
+                      <option value="aktif">Active</option>
+                      <option value="off">Offline</option>
                     </select>
                   </div>
                   <div
