@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import DataTable from "react-data-table-component";
-import { FaEdit, FaTrash } from "react-icons/fa";
 
-const Tabledashboard = () => {
+const Tabledashboard2 = () => {
   const [data, setData] = useState([
     {
       id: 1,
-      name: "John Doe",
+      name: "Totok",
       status: "active",
       role: "customer",
       email: "john@example.com",
@@ -117,4 +116,4 @@ const Tabledashboard = () => {
   );
 };
 
-export default Tabledashboard;
+export default Tabledashboard2;

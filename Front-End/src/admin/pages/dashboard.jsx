@@ -1,8 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaUser, FaBook, FaNewspaper } from "react-icons/fa";
 import Table from "../Table/tabledashboard";
+import Table2 from "../Table/tabledashboard2";
 
 const Dashboard = () => {
+  const [totalPelanggan, setTotalPelanggan] = useState(0);
+  const [totalArtikel, setTotalArtikel] = useState(0);
+  const [totalResep, setTotalResep] = useState(0);
+
+  useEffect(() => {
+    fetch("http://localhost:8081/totalPelanggan")
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalPelanggan(data.totalCustomers);
+      })
+      .catch((err) =>
+        console.error("There was an error fetching the total customers!", err)
+      );
+
+    fetch("http://localhost:8081/totalArticle")
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalArtikel(data.totalArtikel);
+      })
+      .catch((err) =>
+        console.error("There was an error fetching the total articles!", err)
+      );
+
+    fetch("http://localhost:8081/totalRecipe")
+      .then((res) => res.json())
+      .then((data) => {
+        setTotalResep(data.totalResep);
+      })
+      .catch((err) =>
+        console.error("There was an error fetching the total recipes!", err)
+      );
+  }, []);
+
   return (
     <>
       <div className="relative mt-10">
@@ -19,7 +53,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-lg font-semibold ml-2">Total Pelanggan</p>
-                <p className="text-black ml-2 mt-1">6</p>
+                <p className="text-black ml-2 mt-1">{totalPelanggan}</p>
               </div>
             </div>
           </div>
@@ -31,7 +65,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-lg font-semibold ml-2">Total Resep</p>
-                <p className="text-black ml-2 mt-1">6</p>
+                <p className="text-black ml-2 mt-1">{totalResep}</p>
               </div>
             </div>
           </div>
@@ -43,7 +77,7 @@ const Dashboard = () => {
               </div>
               <div>
                 <p className="text-lg font-semibold ml-2">Total Artikel</p>
-                <p className="text-black ml-2 mt-1">6</p>
+                <p className="text-black ml-2 mt-1">{totalArtikel}</p>
               </div>
             </div>
           </div>
@@ -53,7 +87,7 @@ const Dashboard = () => {
             <Table />
           </div>
           <div className="w-[100%]">
-            <Table />
+            <Table2 />
           </div>
         </div>
       </div>

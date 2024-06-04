@@ -29,10 +29,10 @@ import Dashboard from "./admin/pages/dashboard";
 import Recipe from "./admin/pages/recipe";
 import Report from "./admin/pages/report";
 import Login from "./admin/pages/login";
-import Uploadresep from "./admin/pages/uploadresep";
-import Uploadartikel from "./admin/pages/uploadartikel";
 import Pengaturan from "./admin/pages/pengaturan";
 import Tambahadmin from "./admin/pages/tambahadmin";
+import Tambahrecipe from "./admin/pages/tambahrecipe";
+import Tambahartikel from "./admin/pages/tambahartikel";
 
 function App() {
   return (
@@ -100,12 +100,9 @@ function AdminRoutes() {
           <Route path="admin/reportadmin" element={<Report />} />
           <Route path="admin/admin" element={<Admin />} />
           <Route path="/admin/tambahadmin" element={<Tambahadmin />} />
+          <Route path="/admin/tambahrecipe" element={<Tambahrecipe />} />
+          <Route path="/admin/tambahartikel" element={<Tambahartikel />} />
           <Route path="admin/pengaturan" element={<Pengaturan />} />
-          <Route path="/recipeadmin/upload" element={<Uploadresep />} />
-          <Route
-            path="/recipeadmin/uploadarticle"
-            element={<Uploadartikel />}
-          />
         </Routes>
       </div>
     </div>
