@@ -1,0 +1,6 @@
+1. Tabel di dashboard
+2. Login
+3. Report (CRUD dan export)
+4. artikel (tampil foto, edit)
+5. recipe (tampil foto, edit dan create recipebaru) 
+6. pengaturan (Optional)
