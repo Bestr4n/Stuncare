@@ -1,9 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../assets/Kontak/kontak.png";
 import Foto from "../assets/Kontak/kontak-1.png";
 import Playstore from "../assets/ProdukKami/playstore.png";
 
 const Kontak = () => {
+  const [reportData, setReportData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:8081/report", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reportData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(`successfully with ID: ${data.id}`);
+
+        // Kosongkan form setelah berhasil mengirimkan data
+        setReportData({
+          nama: "",
+          email: "",
+          pesan: "",
+        });
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message); // Set error message from backend
+      }
+    } catch (error) {
+      console.error("Error :", error);
+      setError("An error occurred while adding admin"); // Set generic error message
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setReportData({
+      ...reportData,
+      [name]: value,
+    });
+  };
+
   return (
     <>
       <img src={Header} alt="Layanan Header" className="w-full" />
@@ -72,13 +118,16 @@ const Kontak = () => {
                 background:
                   "url(<path-to-image>) lightgray -21.02px 436px / 103.003% 30.794% no-repeat",
               }}
+              onSubmit={handleSubmit}
             >
-              <label htmlFor="name">Nama:</label>
+              <label htmlFor="nama">Nama:</label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                id="nama"
+                name="nama"
                 className="mb-2 p-2 border border-gray-300 rounded"
+                value={reportData.nama}
+                onChange={handleChange}
               />
 
               <label htmlFor="email">Email:</label>
@@ -87,13 +136,17 @@ const Kontak = () => {
                 id="email"
                 name="email"
                 className="mb-2 p-2 border border-gray-300 rounded"
+                value={reportData.email}
+                onChange={handleChange}
               />
 
               <label htmlFor="message">Pesan:</label>
               <textarea
-                id="message"
-                name="message"
+                id="pesam"
+                name="pesan"
                 className="mb-2 p-2 border border-gray-300 rounded"
+                value={reportData.pesan}
+                onChange={handleChange}
               ></textarea>
 
               <button

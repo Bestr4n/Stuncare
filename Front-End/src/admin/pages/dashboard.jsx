@@ -82,8 +82,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 mt-8 w-full md:w-[80%]">
-          <div className="w-[100%]">
+        <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 mt-8 w-full md:w-[80%] ">
+          <div className="w-[100%] mt-6">
             <Table />
           </div>
           <div className="w-[100%]">

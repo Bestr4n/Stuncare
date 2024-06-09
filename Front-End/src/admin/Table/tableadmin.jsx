@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { NavLink } from "react-router-dom"; // Impor NavLink
+import { NavLink } from "react-router-dom";
+import { showSuccessAlert } from "../../utils/sweetAlert(hapus)";
+import { showSuccessAlert2 } from "../../utils/sweetAlert(update)";
 
 const Tableadmin = () => {
   const [data, setData] = useState([]);
@@ -54,6 +56,7 @@ const Tableadmin = () => {
         const updatedAdmins = await response.json();
         setAdmins(updatedAdmins);
         setEditAdmin(null);
+        showSuccessAlert2();
         setIsModalOpen(false);
       } else {
         const errorData = await response.json();
@@ -95,6 +98,7 @@ const Tableadmin = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        showSuccessAlert();
         console.log("Hapus Berhasil:", data);
         setData((prevData) => prevData.filter((item) => item.id_user !== id));
       })

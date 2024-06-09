@@ -4,13 +4,9 @@ import Foto1 from "../assets/Prediksi/prediksi.png";
 
 const Prediksi = () => {
   const [formData, setFormData] = useState({
-    namaAnak: "",
-    tanggalLahir: "",
-    tanggalPengisian: "",
+    umurAnak: "",
     jenisKelamin: "",
-    beratBadan: "",
     tinggiBadan: "",
-    lingkarKepala: "",
   });
 
   const handleChange = (e) => {
@@ -34,7 +30,7 @@ const Prediksi = () => {
           justifyContent: "space-between",
           alignItems: "flex-start",
           width: "100%",
-          marginTop: "20px",
+          marginTop: "10px",
           maxWidth: "1000px",
         }}
         data-aos="flip-right"
@@ -54,7 +50,12 @@ const Prediksi = () => {
           <img
             src={Foto1}
             alt=""
-            style={{ width: "100%", height: "100%", maxHeight: "600px" }}
+            style={{
+              width: "100%",
+              height: "90%",
+              maxHeight: "600px",
+              marginBottom: "20px",
+            }}
           />
         </div>
         <div
@@ -80,12 +81,12 @@ const Prediksi = () => {
               className="form-item"
               style={{ marginBottom: "15px", width: "100%" }}
             >
-              <label htmlFor="namaAnak">Nama Anak</label>
+              <label htmlFor="tanggalLahir">Umur Anak</label>
               <input
-                type="text"
-                id="namaAnak"
-                name="namaAnak"
-                value={formData.namaAnak}
+                type="number"
+                id="umurAnak"
+                name="umurAnak"
+                value={formData.umurAnak}
                 onChange={handleChange}
                 style={{
                   width: "85%",
@@ -96,46 +97,7 @@ const Prediksi = () => {
                 }}
               />
             </div>
-            <div
-              className="form-item"
-              style={{ marginBottom: "15px", width: "100%" }}
-            >
-              <label htmlFor="tanggalLahir">Tanggal Lahir</label>
-              <input
-                type="date"
-                id="tanggalLahir"
-                name="tanggalLahir"
-                value={formData.tanggalLahir}
-                onChange={handleChange}
-                style={{
-                  width: "85%",
-                  padding: "2px",
-                  marginTop: "5px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-              />
-            </div>
-            <div
-              className="form-item"
-              style={{ marginBottom: "15px", width: "100%" }}
-            >
-              <label htmlFor="tanggalPengisian">Tanggal Pengisian</label>
-              <input
-                type="date"
-                id="tanggalPengisian"
-                name="tanggalPengisian"
-                value={formData.tanggalPengisian}
-                onChange={handleChange}
-                style={{
-                  width: "85%",
-                  padding: "2px",
-                  marginTop: "5px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-              />
-            </div>
+
             <div
               className="form-item"
               style={{ marginBottom: "15px", width: "100%" }}
@@ -174,52 +136,12 @@ const Prediksi = () => {
               className="form-item"
               style={{ marginBottom: "15px", width: "100%" }}
             >
-              <label htmlFor="beratBadan">Berat Badan (kg)</label>
-              <input
-                type="number"
-                id="beratBadan"
-                name="beratBadan"
-                value={formData.beratBadan}
-                onChange={handleChange}
-                style={{
-                  width: "85%",
-                  padding: "2px",
-                  marginTop: "5px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-              />
-            </div>
-            <div
-              className="form-item"
-              style={{ marginBottom: "15px", width: "100%" }}
-            >
               <label htmlFor="tinggiBadan">Tinggi Badan (cm)</label>
               <input
                 type="number"
                 id="tinggiBadan"
                 name="tinggiBadan"
                 value={formData.tinggiBadan}
-                onChange={handleChange}
-                style={{
-                  width: "85%",
-                  padding: "2px",
-                  marginTop: "5px",
-                  border: "1px solid #ccc",
-                  borderRadius: "4px",
-                }}
-              />
-            </div>
-            <div
-              className="form-item"
-              style={{ marginBottom: "15px", width: "100%" }}
-            >
-              <label htmlFor="lingkarKepala">Lingkar Kepala (cm)</label>
-              <input
-                type="number"
-                id="lingkarKepala"
-                name="lingkarKepala"
-                value={formData.lingkarKepala}
                 onChange={handleChange}
                 style={{
                   width: "85%",

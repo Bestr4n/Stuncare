@@ -1,45 +1,52 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { showSuccessAlert } from "../../utils/sweetAlert(nambah)";
 
 const TambahRecipe = () => {
-  const [recipeData, setRecipeData] = useState({
-    foto: null, // Mengatur foto menjadi null secara default
-  });
-
+  const [food_name, setFoodName] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const [kalori, setKalori] = useState("");
+  const [durasi, setDurasi] = useState("");
+  const [porsi, setPorsi] = useState("");
+  const [usia, setUsia] = useState("");
+  const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRecipeData({
-      ...recipeData,
-      [name]: value,
-    });
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("food_name", food_name);
+    formData.append("author", author);
+    formData.append("description", description);
+    formData.append("kalori", kalori);
+    formData.append("durasi", durasi);
+    formData.append("porsi", porsi);
+    formData.append("usia", usia);
+    if (file) {
+      formData.append("file", file);
+    }
+
     try {
-      const response = await fetch("http://localhost:8081/recipe", {
+      const response = await fetch("http://localhost:8081/createrecipe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(recipeData),
+        body: formData,
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert(`Recipe added successfully with ID: ${data.id}`);
+        showSuccessAlert();
         navigate("/admin/admin/recipeadmin");
       } else {
         const errorData = await response.json();
-        setError(errorData.message); // Set error message from backend
+        setError(errorData.Error || "Something went wrong");
       }
-    } catch (error) {
-      console.error("Error adding recipe:", error);
-      setError("An error occurred while adding recipe"); // Set generic error message
+    } catch (err) {
+      setError("Network error: " + err.message);
     }
   };
 
@@ -60,14 +67,12 @@ const TambahRecipe = () => {
           type="file"
           id="foto"
           className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
-          onChange={(e) =>
-            setRecipeData({ ...recipeData, foto: e.target.files[0] || null })
-          }
+          onChange={handleFileChange}
         />
         <div className="grid grid-cols-3 gap-2 mt-5">
           <div>
             <label
-              className="block text-gray-700 text-sm font-bold mb-2 "
+              className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="food-name"
             >
               Food Name
@@ -78,7 +83,8 @@ const TambahRecipe = () => {
               name="food_name"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter food name"
-              onChange={handleChange}
+              value={food_name}
+              onChange={(e) => setFoodName(e.target.value)}
             />
           </div>
           <div>
@@ -94,7 +100,8 @@ const TambahRecipe = () => {
               name="author"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter author name"
-              onChange={handleChange}
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
             />
           </div>
           <div>
@@ -110,7 +117,8 @@ const TambahRecipe = () => {
               name="kalori"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter calories"
-              onChange={handleChange}
+              value={kalori}
+              onChange={(e) => setKalori(e.target.value)}
             />
           </div>
           <div>
@@ -126,7 +134,8 @@ const TambahRecipe = () => {
               name="durasi"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter duration"
-              onChange={handleChange}
+              value={durasi}
+              onChange={(e) => setDurasi(e.target.value)}
             />
           </div>
           <div>
@@ -142,7 +151,8 @@ const TambahRecipe = () => {
               name="porsi"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter servings"
-              onChange={handleChange}
+              value={porsi}
+              onChange={(e) => setPorsi(e.target.value)}
             />
           </div>
           <div>
@@ -158,10 +168,11 @@ const TambahRecipe = () => {
               name="usia"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter age"
-              onChange={handleChange}
+              value={usia}
+              onChange={(e) => setUsia(e.target.value)}
             />
           </div>
-          <div className=" col-span-3">
+          <div className="col-span-3">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="description"
@@ -173,7 +184,8 @@ const TambahRecipe = () => {
               name="description"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter description"
-              onChange={handleChange}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
         </div>

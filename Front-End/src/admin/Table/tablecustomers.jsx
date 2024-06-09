@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { showSuccessAlert } from "../../utils/sweetAlert(hapus)";
+import { showSuccessAlert2 } from "../../utils/sweetAlert(update)";
 
 const Tablecustomers = () => {
   const [data, setData] = useState([]);
@@ -25,6 +27,7 @@ const Tablecustomers = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        showSuccessAlert();
         console.log("Hapus Berhasil:", data);
         setData((prevData) =>
           prevData.filter((item) => item.id_customer !== id)
@@ -51,6 +54,7 @@ const Tablecustomers = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        showSuccessAlert2();
         console.log("Update berhasil:", data);
         closeModal();
       })

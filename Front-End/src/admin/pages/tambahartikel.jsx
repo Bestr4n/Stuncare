@@ -1,45 +1,70 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { showSuccessAlert } from "../../utils/sweetAlert(nambah)";
 
 const Tambahartikel = () => {
-  const [adminData, setAdminData] = useState({
-    foto: null, // Mengatur foto menjadi null secara default
-  });
-
+  const [judul, setJudul] = useState("");
+  const [author, setAuthor] = useState("");
+  const [lokasi, setLokasi] = useState("");
+  const [tglPenerbitan, setTglPenerbitan] = useState("");
+  const [deskripsi, setDeskripsi] = useState("");
+  const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAdminData({
-      ...adminData,
-      [name]: value,
-    });
+    switch (name) {
+      case "judul":
+        setJudul(value);
+        break;
+      case "author":
+        setAuthor(value);
+        break;
+      case "lokasi":
+        setLokasi(value);
+        break;
+      case "tgl_penerbitan":
+        setTglPenerbitan(value);
+        break;
+      case "deskripsi":
+        setDeskripsi(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("judul", judul);
+    formData.append("author", author);
+    formData.append("lokasi", lokasi);
+    formData.append("tgl_penerbitan", tglPenerbitan);
+    formData.append("deskripsi", deskripsi);
+    formData.append("file", file);
+
     try {
-      const response = await fetch("http://localhost:8081/article", {
+      const response = await fetch("http://localhost:8081/createarticle", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(adminData),
+        body: formData,
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert(`Admin added successfully with ID: ${data.id}`);
+        showSuccessAlert();
         navigate("/admin/admin/articleadmin");
       } else {
         const errorData = await response.json();
-        setError(errorData.message); // Set error message from backend
+        setError(errorData.Error);
       }
     } catch (error) {
-      console.error("Error adding admin:", error);
-      setError("An error occurred while adding admin"); // Set generic error message
+      console.error("Error adding artikel:", error);
+      setError("An error occurred while adding artikel");
     }
   };
 
@@ -52,23 +77,22 @@ const Tambahartikel = () => {
       <form onSubmit={handleSubmit}>
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="author"
+          htmlFor="foto"
         >
           Image
         </label>
         <input
           type="file"
           id="foto"
+          name="foto"
           className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
-          onChange={(e) =>
-            setAdminData({ ...adminData, foto: e.target.files[0] || null })
-          }
+          onChange={handleFileChange}
         />
         <div className="grid grid-cols-4 gap-4 mt-5">
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="food-name"
+              htmlFor="judul"
             >
               Judul
             </label>
@@ -76,6 +100,7 @@ const Tambahartikel = () => {
               type="text"
               id="judul"
               name="judul"
+              value={judul}
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter article name"
               onChange={handleChange}
@@ -92,6 +117,7 @@ const Tambahartikel = () => {
               type="text"
               id="author"
               name="author"
+              value={author}
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter author name"
               onChange={handleChange}
@@ -100,7 +126,7 @@ const Tambahartikel = () => {
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="food-name"
+              htmlFor="lokasi"
             >
               Lokasi
             </label>
@@ -108,7 +134,9 @@ const Tambahartikel = () => {
               type="text"
               id="lokasi"
               name="lokasi"
-              className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
+              value={lokasi}
+              className="block w-full text-sm text-gray-500 border border-gray-
+              300 rounded-md px-4 py-2"
               placeholder="Enter Location"
               onChange={handleChange}
             />
@@ -116,30 +144,31 @@ const Tambahartikel = () => {
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="author"
+              htmlFor="tgl_penerbitan"
             >
               Tanggal Penerbitan
             </label>
             <input
               type="date"
-              id="tanggal"
+              id="tgl_penerbitan"
               name="tgl_penerbitan"
+              value={tglPenerbitan}
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter Date Time"
               onChange={handleChange}
             />
-          </div>
-
-          <div className=" col-span-4 ">
+          </div>{" "}
+          <div className="col-span-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="description"
+              htmlFor="deskripsi"
             >
               Description
             </label>
             <textarea
-              id="description"
+              id="deskripsi"
               name="deskripsi"
+              value={deskripsi}
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-md px-4 py-2"
               placeholder="Enter description"
               onChange={handleChange}

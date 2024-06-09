@@ -11,7 +11,6 @@ import About from "./pages/About";
 import Arcticle from "./pages/Article";
 import Prediksi from "./pages/Prediksi";
 import Rekomendasi from "./pages/Rekomendasi";
-import Konsultasi from "./pages/Konsultasi";
 import Produk1 from "./pages/ProdukDetail/produk1";
 import Produk2 from "./pages/ProdukDetail/produk2";
 import Produk3 from "./pages/ProdukDetail/produk3";
@@ -23,16 +22,17 @@ import Detail3 from "./pages/ArtikelDetail/detail3";
 import Sidebar from "./admin/components/sidebar";
 import NavbarAdmin from "./admin/components/navbar";
 import ArticleAdmin from "./admin/pages/article";
+import Webinar from "./admin/pages/webinar";
 import Admin from "./admin/pages/admin";
 import Customer from "./admin/pages/customer";
 import Dashboard from "./admin/pages/dashboard";
 import Recipe from "./admin/pages/recipe";
 import Report from "./admin/pages/report";
 import Login from "./admin/pages/login";
-import Pengaturan from "./admin/pages/pengaturan";
 import Tambahadmin from "./admin/pages/tambahadmin";
 import Tambahrecipe from "./admin/pages/tambahrecipe";
 import Tambahartikel from "./admin/pages/tambahartikel";
+import Tambahwebinar from "./admin/pages/tambahwebinar";
 
 function App() {
   return (
@@ -59,7 +59,6 @@ function Public() {
         <Route path="article" element={<Arcticle />} />
         <Route path="contact" element={<Kontak />} />
         <Route path="informasi" element={<Informasi />} />
-        <Route path="konsultasi" element={<Konsultasi />} />
         <Route path="prediction" element={<Prediksi />} />
         <Route path="rekomendasi" element={<Rekomendasi />} />
         <Route path="produk1" element={<Produk1 />} />
@@ -98,11 +97,12 @@ function AdminRoutes() {
           <Route path="admin/customeradmin" element={<Customer />} />
           <Route path="admin/recipeadmin" element={<Recipe />} />
           <Route path="admin/reportadmin" element={<Report />} />
+          <Route path="admin/webinaradmin" element={<Webinar />} />
           <Route path="admin/admin" element={<Admin />} />
           <Route path="/admin/tambahadmin" element={<Tambahadmin />} />
           <Route path="/admin/tambahrecipe" element={<Tambahrecipe />} />
           <Route path="/admin/tambahartikel" element={<Tambahartikel />} />
-          <Route path="admin/pengaturan" element={<Pengaturan />} />
+          <Route path="/admin/tambahwebinar" element={<Tambahwebinar />} />
         </Routes>
       </div>
     </div>
