@@ -1,9 +1,25 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaUser, FaCog, FaFileAlt } from "react-icons/fa";
+import {
+  FaHome,
+  FaUser,
+  FaFileAlt,
+  FaUtensils,
+  FaUserCog,
+  FaNewspaper,
+  FaChalkboardTeacher,
+} from "react-icons/fa";
 import Logo from "../assets/logo_putih.png";
 
 const Sidebar = ({ isOpen }) => {
+  const handleLogoutClick = (event) => {
+    event.preventDefault();
+    if (window.confirm("Anda ingin keluar?")) {
+      console.log("Logged out");
+      window.location.href = "/";
+    }
+  };
+
   return (
     <aside
       className={`bg-purple-700 text-white flex-shrink-0 transition-width duration-300 ${
@@ -42,7 +58,7 @@ const Sidebar = ({ isOpen }) => {
           <li>
             <NavLink
               to="admin/customeradmin"
-              className="pl-2"
+              className="pl-0"
               activeClassName="text-black"
             >
               <div className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
@@ -58,11 +74,11 @@ const Sidebar = ({ isOpen }) => {
           <li>
             <NavLink
               to="admin/admin"
-              className="pl-2"
+              className="pl-0"
               activeClassName="text-black"
             >
               <div className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
-                <FaUser className="w-6 h-6" />
+                <FaUserCog className="w-6 h-6" />
                 <span
                   className={`ml-2 ${isOpen ? "block" : "hidden"} md:block`}
                 >
@@ -74,7 +90,7 @@ const Sidebar = ({ isOpen }) => {
           <li>
             <NavLink
               to="admin/reportadmin"
-              className="pl-2"
+              className="pl-0"
               activeClassName="text-black"
             >
               <div className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
@@ -90,11 +106,11 @@ const Sidebar = ({ isOpen }) => {
           <li>
             <NavLink
               to="admin/articleadmin"
-              className="pl-2"
+              className="pl-0"
               activeClassName="text-black"
             >
               <div className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
-                <FaFileAlt className="w-6 h-6" />
+                <FaNewspaper className="w-6 h-6" />
                 <span
                   className={`ml-2 ${isOpen ? "block" : "hidden"} md:block`}
                 >
@@ -106,7 +122,23 @@ const Sidebar = ({ isOpen }) => {
           <li>
             <NavLink
               to="admin/recipeadmin"
-              className="pl-2"
+              className="pl-0"
+              activeClassName="text-black"
+            >
+              <div className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
+                <FaUtensils className="w-6 h-6" />
+                <span
+                  className={`ml-2 ${isOpen ? "block" : "hidden"} md:block`}
+                >
+                  Recipe
+                </span>
+              </div>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="admin/webinaradmin"
+              className="pl-0"
               activeClassName="text-black"
             >
               <div className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
@@ -114,7 +146,7 @@ const Sidebar = ({ isOpen }) => {
                 <span
                   className={`ml-2 ${isOpen ? "block" : "hidden"} md:block`}
                 >
-                  Recipe
+                  Webinar
                 </span>
               </div>
             </NavLink>
@@ -124,18 +156,13 @@ const Sidebar = ({ isOpen }) => {
 
       <div className="p-2 mt-auto">
         <ul className="space-y-1">
-          <NavLink
-            to="admin/pengaturan"
-            className="pl-2"
-            activeClassName="text-black"
+          <li
+            className="flex items-center space-x-2 p-2  hover:bg-white hover:text-gray-700 rounded-md cursor-pointer"
+            onClick={handleLogoutClick}
           >
-            <li className="flex items-center space-x-2 p-2 hover:bg-white hover:text-gray-700 hover:rounded-md">
-              <FaCog className="w-6 h-6" />
-              <span className={`ml-2 ${isOpen ? "block" : "hidden"} md:block`}>
-                Settings
-              </span>
-            </li>
-          </NavLink>
+            <FaChalkboardTeacher className="w-6 h-6" />
+            <span>Log Out</span>
+          </li>
         </ul>
       </div>
     </aside>

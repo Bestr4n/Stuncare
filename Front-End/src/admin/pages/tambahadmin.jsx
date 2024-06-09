@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { showSuccessAlert } from "../../utils/sweetAlert(nambah)";
 
 const Tambahadmin = () => {
   const [adminData, setAdminData] = useState({
@@ -34,7 +35,7 @@ const Tambahadmin = () => {
 
       if (response.ok) {
         const data = await response.json();
-        alert(`Admin added successfully with ID: ${data.id}`);
+        showSuccessAlert();
         navigate("/admin/admin/admin");
       } else {
         const errorData = await response.json();

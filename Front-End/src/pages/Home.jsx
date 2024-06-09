@@ -309,11 +309,7 @@ const Home = () => {
             to="/rekomendasi"
             title="Rekomendasi Makanan"
           />
-          <LayananCard
-            img={graphicImg}
-            to="/konsultasi"
-            title="Konsultasi Ahli"
-          />
+          <LayananCard img={graphicImg} to="" title="Konsultasi Ahli" />
           <LayananCard
             img={digitalImg}
             to="/prediction"

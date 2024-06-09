@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import EditModal from "./modal/editrecipe";
+import { showSuccessAlert } from "../../utils/sweetAlert(hapus)";
+import { showSuccessAlert2 } from "../../utils/sweetAlert(update)";
 
 const Recipe = () => {
   const [recipes, setRecipes] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState(null);
-  const [file, setFile] = useState(null);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
-  };
-
-  const handleEdit = (recipe) => {
-    setCurrentRecipe(recipe);
-    setShowModal(true);
-  };
-
+  // Memperbarui data resep
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("food_name", document.getElementById("food-name").value);
-    formData.append("author", document.getElementById("author").value);
-    formData.append(
-      "description",
-      document.getElementById("description").value
-    );
-    formData.append("foto", file || null);
+    const formData = new FormData(event.target);
 
     fetch(`http://localhost:8081/recipe/${currentRecipe.id}`, {
       method: "PUT",
@@ -39,6 +26,7 @@ const Recipe = () => {
         return res.json();
       })
       .then((data) => {
+        showSuccessAlert2();
         console.log("Recipe updated successfully:", data);
         handleCloseModal();
       })
@@ -47,6 +35,19 @@ const Recipe = () => {
       });
   };
 
+  // Menampilkan modal edit resep
+  const handleEdit = (recipe) => {
+    setCurrentRecipe(recipe);
+    setShowModal(true);
+  };
+
+  // Menutup modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setCurrentRecipe(null);
+  };
+
+  // Menghapus resep
   const handleDelete = (id) => {
     fetch(`http://localhost:8081/recipe/${id}`, {
       method: "DELETE",
@@ -58,6 +59,7 @@ const Recipe = () => {
         return res.json();
       })
       .then((data) => {
+        showSuccessAlert();
         console.log("Recipe deleted successfully:", data);
         setRecipes(recipes.filter((recipe) => recipe.id !== id));
       })
@@ -66,12 +68,7 @@ const Recipe = () => {
       });
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setCurrentRecipe(null);
-    document.getElementById("file-upload").value = null;
-  };
-
+  // Mengambil data resep dari server saat komponen dimuat
   useEffect(() => {
     fetch("http://localhost:8081/recipe")
       .then((res) => {
@@ -95,6 +92,7 @@ const Recipe = () => {
   return (
     <>
       <section className="p-0 mt-0">
+        {/* Tambahkan tombol tambah resep */}
         <div className="flex ml-24">
           <NavLink
             to="/admin/admin/tambahrecipe"
@@ -104,6 +102,7 @@ const Recipe = () => {
           </NavLink>
         </div>
 
+        {/* Tampilkan daftar resep */}
         <div
           className="ml-48 justify-center mt-0 mb-20"
           style={{ height: "63vh", overflowY: "scroll" }}
@@ -130,7 +129,10 @@ const Recipe = () => {
                       </div>
                       <div className="flex items-center gap-2">
                         <div className="w-[13px] h-[16.32px] bg-gray-800"></div>
-                        <div className="text-gray-500 text-[14px] font-open-sans font-semibold capitalize leading-[22.4px]">
+                        <div
+                          className="text-gray-500 text-[14px] font-open-sans font-semibold capitalize leading-[
+                      <22.4px]"
+                        >
                           {recipe.author}
                         </div>
                       </div>
@@ -186,83 +188,13 @@ const Recipe = () => {
           </div>
         </div>
       </section>
-      {showModal && (
-        <div className="fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 flex items-center justify-center">
-          <div
-            className="bg-white p-8 rounded shadow-md"
-            style={{ width: "600px" }}
-          >
-            <form onSubmit={handleSubmit}>
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="foto"
-              >
-                Foto:
-              </label>
-              <input
-                type="file"
-                id="file-upload"
-                onChange={handleFileChange}
-                className="mb
-                -4"
-              />
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="food-name"
-              >
-                Food Name:
-              </label>
-              <input
-                type="text"
-                id="food-name"
-                defaultValue={currentRecipe.food_name}
-                className="mb-4 w-full p-2 border rounded"
-                required
-              />
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="author"
-              >
-                Author:
-              </label>
-              <input
-                type="text"
-                id="author"
-                defaultValue={currentRecipe.author}
-                className="mb-4 w-full p-2 border rounded"
-                required
-              />
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="description"
-              >
-                Description:
-              </label>
-              <textarea
-                id="description"
-                defaultValue={currentRecipe.description}
-                className="mb-4 w-full p-2 border rounded"
-                required
-              />
-              <div className="flex justify-end">
-                <button
-                  type="button"
-                  onClick={handleCloseModal}
-                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+
+      <EditModal
+        showModal={showModal}
+        currentRecipe={currentRecipe}
+        handleCloseModal={handleCloseModal}
+        handleSubmit={handleSubmit}
+      />
     </>
   );
 };
