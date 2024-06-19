@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import Header from "../assets/Prediksi/home.png";
-import Foto1 from "../assets/Prediksi/prediksi.png";
+import axios from "axios";
+import Swal from "sweetalert2";
+import Header from "../../assets/Prediksi/home.png";
+import Foto1 from "../../assets/Prediksi/prediksi.png";
 
 const Prediksi = () => {
   const [formData, setFormData] = useState({
@@ -14,9 +16,46 @@ const Prediksi = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post("http://localhost:5000/predict", {
+        umur: formData.umurAnak,
+        jenis_kelamin: formData.jenisKelamin === "Laki-Laki" ? 0 : 1,
+        tinggi_badan: formData.tinggiBadan,
+      });
+
+      const prediction = response.data.prediction;
+      let resultText = "";
+      if (prediction === 0) {
+        resultText =
+          "Status Gizi Bayi anda tergolong ke dalam kategori Severely Stunted";
+      } else if (prediction === 1) {
+        resultText =
+          "Status Gizi Bayi anda tergolong ke dalam kategori Stunted";
+      } else if (prediction === 2) {
+        resultText = "Status Gizi Bayi anda tergolong ke dalam kategori Normal";
+      } else if (prediction === 3) {
+        resultText = "Status Gizi Bayi anda tergolong ke dalam kategori Tinggi";
+      } else {
+        resultText = "Masukan Data Dengan Benar";
+      }
+
+      Swal.fire({
+        title: "Hasil Prediksi",
+        text: resultText,
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      console.error("There was an error making the request:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Terjadi kesalahan. Silakan coba lagi.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   };
 
   return (
@@ -97,7 +136,6 @@ const Prediksi = () => {
                 }}
               />
             </div>
-
             <div
               className="form-item"
               style={{ marginBottom: "15px", width: "100%" }}

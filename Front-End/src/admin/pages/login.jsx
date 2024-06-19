@@ -1,19 +1,37 @@
 import Foto from "../assets/logo_putih.png";
-// import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { showSuccessAlert } from "../../utils/sweetAlert(login)";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
       .post("http://localhost:8081/login", { email, password })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        if (res.data.status === "success") {
+          setIsLoggedIn(true);
+          showSuccessAlert();
+        } else {
+          // Handle login failure
+          console.log("Login failed");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        // Handle other errors
+      });
   };
+
+  if (isLoggedIn) {
+    return <Navigate to="/admin/*" />;
+  }
 
   return (
     <div className="bg-[#F1F1FF]">
@@ -40,7 +58,7 @@ const Login = () => {
           >
             <div className="w-full bg-white p-8 rounded-r-lg h-full">
               <h2 className="text-2xl font-bold mb-4 mt-10">Login Admin</h2>
-              <form onSubmit={handleSubmit} method="post">
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4 mt-4">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"

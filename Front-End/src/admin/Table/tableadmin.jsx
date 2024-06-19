@@ -58,6 +58,7 @@ const Tableadmin = () => {
         setEditAdmin(null);
         showSuccessAlert2();
         setIsModalOpen(false);
+        window.location.reload();
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message);

@@ -6,7 +6,7 @@ const showSuccessAlert2 = () => {
     icon: "success",
     title: "Data berhasil dirubah!",
     showConfirmButton: false,
-    timer: 1500,
+    timer: 2000,
   });
 };
 

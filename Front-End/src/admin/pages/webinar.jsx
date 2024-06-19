@@ -16,7 +16,31 @@ const Webinar = () => {
   };
 
   const handleSubmit = (event) => {
-    // Implementasi handler submit
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    fetch(`http://localhost:8081/webinar/${currentWebinar.id_webinar}`, {
+      method: "PUT",
+      body: formData,
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Webinar updated successfully:", data);
+        setWebinar(
+          webinar.map((item) => (item.id === currentWebinar.id ? data : item))
+        );
+        handleCloseModal();
+        showSuccessAlert2();
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.error("Error updating webinar:", err);
+      });
   };
 
   const handleDelete = (id) => {
@@ -33,6 +57,7 @@ const Webinar = () => {
         showSuccessAlert();
         console.log("Webinar deleted successfully:", data);
         setWebinar(webinar.filter((item) => item.id !== id));
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error deleting webinar:", err);
@@ -129,7 +154,7 @@ const Webinar = () => {
                             <FaEdit />
                           </button>
                           <button
-                            onClick={() => handleDelete(webinar.id)}
+                            onClick={() => handleDelete(webinar.id_webinar)}
                             style={{
                               backgroundColor: "#f44336",
                               color: "white",

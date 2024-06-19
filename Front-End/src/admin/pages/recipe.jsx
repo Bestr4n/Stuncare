@@ -15,7 +15,7 @@ const Recipe = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    fetch(`http://localhost:8081/recipe/${currentRecipe.id}`, {
+    fetch(`http://localhost:8081/recipe/${currentRecipe.id_recipe}`, {
       method: "PUT",
       body: formData,
     })
@@ -29,6 +29,7 @@ const Recipe = () => {
         showSuccessAlert2();
         console.log("Recipe updated successfully:", data);
         handleCloseModal();
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error updating recipe:", err);
@@ -37,6 +38,7 @@ const Recipe = () => {
 
   // Menampilkan modal edit resep
   const handleEdit = (recipe) => {
+    console.log(recipe);
     setCurrentRecipe(recipe);
     setShowModal(true);
   };
@@ -62,6 +64,7 @@ const Recipe = () => {
         showSuccessAlert();
         console.log("Recipe deleted successfully:", data);
         setRecipes(recipes.filter((recipe) => recipe.id !== id));
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error deleting recipe:", err);

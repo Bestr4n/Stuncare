@@ -9,7 +9,7 @@ import Kontak from "./pages/Kontak";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Arcticle from "./pages/Article";
-import Prediksi from "./pages/Prediksi";
+import Prediksi from "./pages/Prediction/Prediksi";
 import Rekomendasi from "./pages/Rekomendasi";
 import Produk1 from "./pages/ProdukDetail/produk1";
 import Produk2 from "./pages/ProdukDetail/produk2";
