@@ -37,26 +37,20 @@ app.use("/uploads", express.static("public/images"));
 
 // BE login
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-
-  // Validasi data
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: "Username and password are required" });
-  }
-
-  // Query untuk memeriksa pengguna dengan username dan password tertentu
-  const sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-  db.query(sql, [username, password], (err, result) => {
+  const sql = "SELECT * FROM user WHERE email = ? AND password = ?";
+  db.query(sql, [req.body.email, req.body.password], (err, data) => {
     if (err) {
-      return res.status(500).json({ message: "Database error", error: err });
+      return res
+        .status(500)
+        .json({ status: "error", message: "Database error" });
     }
-    if (result.length === 0) {
-      return res.status(401).json({ message: "Invalid username or password" });
+    if (data.length === 1) {
+      return res
+        .status(200)
+        .json({ status: "success", message: "Login successful" });
+    } else {
+      return res.status(401).json({ status: "error", message: "Login failed" });
     }
-    // Jika pengguna ditemukan, kirim respons sukses
-    res.status(200).json({ message: "Login successful", user: result[0] });
   });
 });
 
@@ -286,7 +280,7 @@ app.post("/createarticle", upload.single("file"), (req, res) => {
   });
 });
 
-app.put("/article/:id", (req, res) => {
+app.put("/article/:id", multer().none(), (req, res) => {
   const id = req.params.id;
   const { judul, author, lokasi, tgl_penerbitan, deskripsi } = req.body;
 
@@ -364,23 +358,10 @@ app.post("/createrecipe", upload.single("file"), (req, res) => {
   });
 });
 
-app.put("/recipe/:id", (req, res) => {
+app.put("/recipe/:id", multer().none(), (req, res) => {
   const id = req.params.id;
   const { food_name, author, description, kalori, durasi, porsi, usia } =
     req.body;
-
-  // Validasi data
-  if (
-    !food_name ||
-    !author ||
-    !description ||
-    !kalori ||
-    !durasi ||
-    !porsi ||
-    !usia
-  ) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
 
   const sql =
     "UPDATE recipe SET food_name = ?, author = ?, kalori = ?, durasi = ?, description = ?, porsi = ?, usia = ? WHERE id_recipe = ?";
@@ -451,7 +432,7 @@ app.post("/createwebinar", upload.single("file"), (req, res) => {
   });
 });
 
-app.put("/webinar/:id", (req, res) => {
+app.put("/webinar/:id", multer().none(), (req, res) => {
   const id = req.params.id;
   const { judul, tgl_webinar, kategori_webinar, pembicara, lokasi_webinar } =
     req.body;

@@ -6,7 +6,7 @@ const showSuccessAlert = () => {
     icon: "success",
     title: "Data berhasil dihapus!",
     showConfirmButton: false,
-    timer: 1500,
+    timer: 2000,
   });
 };
 

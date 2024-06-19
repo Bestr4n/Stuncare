@@ -57,6 +57,7 @@ const Tablecustomers = () => {
         showSuccessAlert2();
         console.log("Update berhasil:", data);
         closeModal();
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Error:", err);

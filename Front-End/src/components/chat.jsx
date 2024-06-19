@@ -1,27 +1,62 @@
-// line yang diperbaiki di kode 24 (instance id, asistant id ) dan kode 33 ttg token
-
-import React, { useState } from "react";
-import { FaRobot } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Chat = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(true);
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [sessionId, setSessionId] = useState("");
 
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-  };
+  useEffect(() => {
+    // Load Watson Assistant script
+    window.watsonAssistantChatOptions = {
+      integrationID: "b059d1c1-8ab4-4ea5-b3d0-7be8d3386633", // The ID of this integration.
+      region: "au-syd", // The region your integration is hosted in.
+      serviceInstanceID: "372721f1-5b08-44f1-90ac-017a23233a7c", // The ID of your service instance.
+      onLoad: async (instance) => {
+        await instance.render();
+      },
+    };
+    setTimeout(function () {
+      const t = document.createElement("script");
+      t.src =
+        "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+        (window.watsonAssistantChatOptions.clientVersion || "latest") +
+        "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+
+    // Get session ID
+    const getSessionId = async () => {
+      try {
+        const response = await axios.post(
+          "https://api.au-syd.assistant.watson.cloud.ibm.com/instances/372721f1-5b08-44f1-90ac-017a23233a7c/v2/assistants/b059d1c1-8ab4-4ea5-b3d0-7be8d3386633/sessions?version=2021-06-14",
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer {your_token_here}", // Replace with your actual token
+            },
+          }
+        );
+        setSessionId(response.data.session_id);
+      } catch (error) {
+        console.error("Error getting session ID:", error);
+      }
+    };
+
+    getSessionId();
+  }, []);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (message.trim()) {
-      setChatMessages([...chatMessages, message]);
+      setChatMessages([...chatMessages, { sender: "user", text: message }]);
       setMessage("");
 
       try {
         const response = await axios.post(
-          "https://api.us-south.assistant.watson.cloud.ibm.com/instances/{instance_id}/v2/assistants/{assistant_id}/sessions/{session_id}/message?version=2021-06-14",
+          `https://api.au-syd.assistant.watson.cloud.ibm.com/instances/372721f1-5b08-44f1-90ac-017a23233a7c/v2/assistants/b059d1c1-8ab4-4ea5-b3d0-7be8d3386633/sessions/${sessionId}/message?version=2021-06-14`,
           {
             input: {
               text: message,
@@ -30,14 +65,17 @@ const Chat = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer {your_token_here}",
+              Authorization: "Bearer {your_token_here}", // Replace with your actual token
             },
           }
         );
 
         if (response.data.output.generic) {
           const botReply = response.data.output.generic[0].text;
-          setChatMessages([...chatMessages, botReply]);
+          setChatMessages((prevMessages) => [
+            ...prevMessages,
+            { sender: "bot", text: botReply },
+          ]);
         }
       } catch (error) {
         console.error("Error sending message:", error);
@@ -45,48 +83,7 @@ const Chat = () => {
     }
   };
 
-  return (
-    <>
-      <div
-        className="fixed bottom-5 right-5 bg-black hover:bg-purple-500 text-white font-bold py-4 px-6 rounded-full shadow-lg cursor-pointer"
-        onClick={toggleChat}
-      >
-        <FaRobot />
-      </div>
-      {isChatOpen && (
-        <div className="fixed bottom-20 right-5 bg-white p-4 rounded-lg shadow-lg w-80 h-96 flex flex-col justify-between">
-          <div className="flex justify-between items-center mb-2">
-            <h2 className="text-xl font-bold">Chat Bot</h2>
-            <button className="text-red-500 font-bold" onClick={toggleChat}>
-              X
-            </button>
-          </div>
-          <div className="chat-content mb-4 overflow-y-auto h-64">
-            {chatMessages.map((msg, index) => (
-              <div key={index} className="mb-2">
-                <div className="bg-gray-200 p-2 rounded">{msg}</div>
-              </div>
-            ))}
-          </div>
-          <form onSubmit={handleSendMessage} className="flex">
-            <input
-              type="text"
-              className="border border-gray-300 p-2 flex-grow rounded-l"
-              placeholder="Type your message..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="bg-blue-500 text-white p-2 rounded-r"
-            >
-              Send
-            </button>
-          </form>
-        </div>
-      )}
-    </>
-  );
+  return <></>;
 };
 
 export default Chat;

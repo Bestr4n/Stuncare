@@ -23,6 +23,7 @@ const EditModal = ({
             <input
               type="text"
               id="judul"
+              name="judul"
               defaultValue={currentArticle.judul}
               className="border border-gray-300 rounded-lg px-4 py-2 w-full"
               required
@@ -33,6 +34,7 @@ const EditModal = ({
             <input
               type="text"
               id="author"
+              name="author"
               defaultValue={currentArticle.author}
               className="border border-gray-300 rounded-lg px-4 py-2 w-full"
               required
@@ -43,6 +45,7 @@ const EditModal = ({
             <input
               type="text"
               id="lokasi"
+              name="lokasi"
               defaultValue={currentArticle.lokasi}
               className="border border-gray-300 rounded-lg px-4 py-2 w-full"
               required
@@ -53,6 +56,7 @@ const EditModal = ({
             <input
               type="date"
               id="tgl_penerbitan"
+              name="tgl_penerbitan"
               defaultValue={currentArticle.tgl_penerbitan}
               className="border border-gray-300 rounded-lg px-4 py-2 w-full"
               required
@@ -62,6 +66,7 @@ const EditModal = ({
             Deskripsi:
             <textarea
               id="deskripsi"
+              name="deskripsi"
               defaultValue={currentArticle.deskripsi}
               className="border border-gray-300 rounded-lg px-4 py-2 w-full"
               required

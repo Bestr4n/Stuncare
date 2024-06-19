@@ -30,14 +30,15 @@ const Article = () => {
         return res.json();
       })
       .then((data) => {
-        showSuccessAlert2();
         console.log("Article updated successfully:", data);
         setArticles(
           articles.map((article) =>
             article.id === currentArticle.id ? data : article
           )
         );
+        window.location.reload();
         handleCloseModal();
+        showSuccessAlert2();
       })
       .catch((err) => {
         console.error("Error updating article:", err);

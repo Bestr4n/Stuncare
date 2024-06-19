@@ -6,7 +6,7 @@ const showSuccessAlert = () => {
     icon: "success",
     title: "Anda Berhasil Login",
     showConfirmButton: false,
-    timer: 1500,
+    timer: 2000,
   });
 };
 
