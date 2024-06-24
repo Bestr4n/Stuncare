@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 09, 2024 at 04:10 AM
+-- Generation Time: Jun 20, 2024 at 08:15 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -42,10 +42,10 @@ CREATE TABLE `artikel` (
 --
 
 INSERT INTO `artikel` (`id`, `judul`, `author`, `lokasi`, `tgl_penerbitan`, `deskripsi`, `foto`) VALUES
-(1, 'STuntinh', 'Admin', 'Indonesia', '2022-04-10', 'Stunting merupakan satu kondisi di mana pertumbuhan dan perkembangan anak terganggu, yang disebabkan karena kurangnya gizi maupun infeksi kronis pada 1.000 hari pertama kehidupan.  Dokter Spesialis Anak Konsultan Endokrinologi Anak, Prof dr Madarina Julia, MPH., Ph.D, Sp.A (K), menjelaskan bahwa stunting erat kaitannya dengan asupan nutrisi yang buruk, infeksi berulang, dan stimulasi psikososial yang tidak memadai. \"Anak  stunting tentu mempunyai riwayat gizi dan riwayat kesehatan yang kurang baik. Selain itu, anak stunting juga sangat mungkin mengalami gangguan perkembangan,\" ungkap Madarina dalam webinar Pentingnya Pemantauan Tumbuh Kembang Terhadap Penegakkan Deteksi Dini Stunting pada Anak Indonesia, Kamis (24/2/2022). Sehingga,  penting bagi orangtua untuk mendeteksi dini permasalahan stunting pada anak, dengan memantau tinggi badan, berat badan, lingkar kepala, serta dinilai perkembangannya. \"Kita harus memantau pertumbuhan anak, apakah anak kita tumbuh dengan baik dilihat dari tinggi badannya, apakah anak terlalu kurus atau terlalu gemuk. Apakah dia berkembang sesuai dengan usianya,\"kata Madarina. Lebih lanjut, dia berkata kecurigaan stunting pada anak dapat dilihat dari kondisi tubuhnya. Misalnya, apabila anak kurus, pendek, dan terjadi gangguan perkembangan kemungkinan besar dia mengalami stunting. Sebaliknya, jika anak pendek, tidak kurus, dan tanpa gangguan perkembangan maka dia tidak mengalami stunting.', NULL),
+(1, 'tumbuh dan kembang', 'admin', 'Indonesia', '2024-06-14', 'tumbuh', NULL),
 (2, 'stunting', 'Admin', 'Indonesia', '2022-04-10', 'Stunting merupakan satu kondisi di mana pertumbuhan dan\r\n                perkembangan anak terganggu, yang disebabkan karena kurangnya\r\n                gizi maupun infeksi kronis pada 1.000 hari pertama kehidupan.\r\n                Dokter Spesialis Anak Konsultan Endokrinologi Anak, Prof dr\r\n                Madarina Julia, MPH., Ph.D, Sp.A (K), menjelaskan bahwa stunting\r\n                erat kaitannya dengan asupan nutrisi yang buruk, infeksi\r\n                berulang, dan stimulasi psikososial yang tidak memadai. \"Anak\r\n                stunting tentu mempunyai riwayat gizi dan riwayat kesehatan yang\r\n                kurang baik. Selain itu, anak stunting juga sangat mungkin\r\n                mengalami gangguan perkembangan,\" ungkap Madarina dalam webinar\r\n                Pentingnya Pemantauan Tumbuh Kembang Terhadap Penegakkan Deteksi\r\n                Dini Stunting pada Anak Indonesia, Kamis (24/2/2022). Sehingga,\r\n                penting bagi orangtua untuk mendeteksi dini permasalahan\r\n                stunting pada anak, dengan memantau tinggi badan, berat badan,\r\n                lingkar kepala, serta dinilai perkembangannya. \"Kita harus\r\n                memantau pertumbuhan anak, apakah anak kita tumbuh dengan baik\r\n                dilihat dari tinggi badannya, apakah anak terlalu kurus atau\r\n                terlalu gemuk. Apakah dia berkembang sesuai dengan usianya,\"\r\n                kata Madarina. Lebih lanjut, dia berkata kecurigaan stunting\r\n                pada anak dapat dilihat dari kondisi tubuhnya. Misalnya, apabila\r\n                anak kurus, pendek, dan terjadi gangguan perkembangan\r\n                kemungkinan besar dia mengalami stunting. Sebaliknya, jika anak\r\n                pendek, tidak kurus, dan tanpa gangguan perkembangan maka dia\r\n                tidak mengalami stunting.', NULL),
 (4, '', 'Admin', 'Indonesia', '2022-04-10', 'Stunting merupakan satu kondisi di mana pertumbuhan dan\r\n                perkembangan anak terganggu, yang disebabkan karena kurangnya\r\n                gizi maupun infeksi kronis pada 1.000 hari pertama kehidupan.\r\n                Dokter Spesialis Anak Konsultan Endokrinologi Anak, Prof dr\r\n                Madarina Julia, MPH., Ph.D, Sp.A (K), menjelaskan bahwa stunting\r\n                erat kaitannya dengan asupan nutrisi yang buruk, infeksi\r\n                berulang, dan stimulasi psikososial yang tidak memadai. \"Anak\r\n                stunting tentu mempunyai riwayat gizi dan riwayat kesehatan yang\r\n                kurang baik. Selain itu, anak stunting juga sangat mungkin\r\n                mengalami gangguan perkembangan,\" ungkap Madarina dalam webinar\r\n                Pentingnya Pemantauan Tumbuh Kembang Terhadap Penegakkan Deteksi\r\n                Dini Stunting pada Anak Indonesia, Kamis (24/2/2022). Sehingga,\r\n                penting bagi orangtua untuk mendeteksi dini permasalahan\r\n                stunting pada anak, dengan memantau tinggi badan, berat badan,\r\n                lingkar kepala, serta dinilai perkembangannya. \"Kita harus\r\n                memantau pertumbuhan anak, apakah anak kita tumbuh dengan baik\r\n                dilihat dari tinggi badannya, apakah anak terlalu kurus atau\r\n                terlalu gemuk. Apakah dia berkembang sesuai dengan usianya,\"\r\n                kata Madarina. Lebih lanjut, dia berkata kecurigaan stunting\r\n                pada anak dapat dilihat dari kondisi tubuhnya. Misalnya, apabila\r\n                anak kurus, pendek, dan terjadi gangguan perkembangan\r\n                kemungkinan besar dia mengalami stunting. Sebaliknya, jika anak\r\n                pendek, tidak kurus, dan tanpa gangguan perkembangan maka dia\r\n                tidak mengalami stunting.', NULL),
-(8, 'Judul Baru', 'Penulis Baru', 'Lokasi Baru', '2023-06-07', 'Deskripsi Baru', '1717729870123_IMG_20230430_080521.jpg');
+(9, 'perkembangan anak', 'admin', 'Indonesia', '2024-06-14', 'perkembangan anak adalah bla bla bla', '1718286141312_Logo.png');
 
 -- --------------------------------------------------------
 
@@ -65,8 +65,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id_customer`, `nama`, `status`, `email`) VALUES
-('CTM0001', 'admin', 'off', 'admin@gmail.com'),
-('CTM0002', 'totok', 'off', 'totok@gmail.com');
+('CTM0002', 'azwar', 'aktif', 'azwar@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -91,12 +90,11 @@ CREATE TABLE `recipe` (
 --
 
 INSERT INTO `recipe` (`id_recipe`, `food_name`, `author`, `description`, `kalori`, `durasi`, `porsi`, `usia`, `foto`) VALUES
-(1, 'Bubur Kacang Hijau Susu', 'Admin', 'Bubur Kacang Hijau Susu', '120', '2 hari', '2', '19', NULL),
+(1, 'nasi goreng', 'admin', 'nasi goreng', '100kcal', '1 hari', '1 porsi', 'semua usia', NULL),
 (2, 'Bubur Udang Tahu', 'Admin', 'Bubur Udang Tahu', '120', '2 hari', '2', '19', NULL),
 (3, 'Pure Brokoli Kentang Keju', 'admin', 'Pure Brokoli Kentang Keju', '22', '3 hari', '2', '12', NULL),
 (4, 'Salad Buah dan Sayur', 'admin', 'Salad Buah dan Sayur', '22', '3 hari', '2', '12', NULL),
-(6, 'Nama Makanan Baru', 'Penulis Baru', 'Deskripsi Baru', 'Kalori Baru', 'Durasi Baru', 'Porsi Baru', 'Usia Baru', NULL),
-(10, 'tes', 'tes', 'tes', 'tes', 'tes', 'tes', 'tes', '1717755506968_IMG_20230430_080521.jpg');
+(11, 'Buah buahan', 'admin', 'buah buahan', '100kcal', '2 minggu', '1 buah', '8 tahun', '1718286239144_card1.png');
 
 -- --------------------------------------------------------
 
@@ -120,9 +118,7 @@ INSERT INTO `report` (`id_report`, `nama`, `email`, `pesan`) VALUES
 (4, 'Azwar Iranda', 'Azwar@gmail.com', 'Apk yang Baik'),
 (7, 'John Doe', 'johndoe@example.com', 'This is a test message.'),
 (8, 'totok', 'johndoe@example.com', 'This is a test message.'),
-(9, 'admin', 'admin@gmail.com', 'admin'),
-(10, 'admin', 'admin@gmail.com', 'admin\n'),
-(12, 'Test Guruk', 'admin@gmail.com', 'tes');
+(9, 'admin', 'admin@gmail.com', 'admin');
 
 -- --------------------------------------------------------
 
@@ -143,10 +139,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `email`, `password`, `nama_lengkap`, `status`) VALUES
-(1, 'tes@gmail.com', 'tes', 'tes', 'off'),
 (3, 'kurniawan@gmail.com', '1', 'kurniawan', 'off'),
 (8, 'totokkurniawan710@gmail.com', '123', 'Totok Kurniawan', 'aktif'),
-(10, 'admin@gmail.com', 'admin', 'admin', 'aktif');
+(10, 'admin@gmail.com', 'admin', 'admin', 'aktif'),
+(11, 'bestran@gmail.com', 'admin', 'bestran', 'off');
 
 -- --------------------------------------------------------
 
@@ -169,11 +165,10 @@ CREATE TABLE `webinar` (
 --
 
 INSERT INTO `webinar` (`id_webinar`, `judul`, `tgl_webinar`, `kategori_webinar`, `pembicara`, `lokasi_webinar`, `foto`) VALUES
-(1, 'Webinar AI Update', '2024-06-12', 'meet', 'Dr. Jane Doe', 'Bandung', 'tes'),
-(3, 'tes', '2001-02-02', 'meet', 'tes', 'tes', '1717860563889_IMG_20230430_080653.jpg'),
-(4, 'tes', '2200-02-20', 'luring', 'tes', 'tes', '1717861665774_IMG_20230430_080512.jpg'),
-(5, 'tes', '2001-02-02', 'luring', 'tes', 'tes', '1717861932028_IMG_20230430_080521.jpg'),
-(6, 'asek', '2002-02-20', 'meet', 'asek', 'asek', '1717862356176_IMG_20230430_080521.jpg');
+(1, 'Webinar AI Update', '2024-06-11', 'zoom', 'Dr. Jane Doe', 'h', 'tes'),
+(3, 'perkembangan anak', '2024-06-14', 'luring', 'dr anak agung', 'jember', '1717860563889_IMG_20230430_080653.jpg'),
+(4, 'api', '2024-06-12', 'zoom', 'ouefh', 'wiuf', '1717861665774_IMG_20230430_080512.jpg'),
+(5, 'tes', '2001-02-02', 'luring', 'tes', 'tes', '1717861932028_IMG_20230430_080521.jpg');
 
 --
 -- Indexes for dumped tables
@@ -223,13 +218,13 @@ ALTER TABLE `webinar`
 -- AUTO_INCREMENT for table `artikel`
 --
 ALTER TABLE `artikel`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `recipe`
 --
 ALTER TABLE `recipe`
-  MODIFY `id_recipe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_recipe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `report`
@@ -241,13 +236,13 @@ ALTER TABLE `report`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `webinar`
 --
 ALTER TABLE `webinar`
-  MODIFY `id_webinar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_webinar` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
